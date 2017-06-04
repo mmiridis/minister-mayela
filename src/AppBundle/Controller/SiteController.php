@@ -5,22 +5,23 @@ namespace AppBundle\Controller;
 use AppBundle\Event\ContactEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use AppBundle\Entity\Contact;
-use AppBundle\Form\ContactType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Form;
-use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use AppBundle\Entity\Contact;
+use AppBundle\Form\ContactType;
 
 class SiteController extends Controller
 {
     /**
      * @Route("/", name="home")
+     * @Cache(maxage="0", public=false)
      *
      * @return Response
      */
@@ -31,6 +32,7 @@ class SiteController extends Controller
 
     /**
      * @Route("/about-me", name="aboutMe")
+     * @Cache(maxage="0", public=false)
      *
      * @return Response
      */
@@ -41,6 +43,7 @@ class SiteController extends Controller
 
     /**
      * @Route("/gallery", name="gallery")
+     * @Cache(maxage="0", public=false)
      *
      * @return Response
      */
@@ -63,6 +66,7 @@ class SiteController extends Controller
 
     /**
      * @Route("/testimonials", name="testimonials")
+     * @Cache(maxage="0", public=false)
      *
      * @return Response
      */
@@ -73,6 +77,7 @@ class SiteController extends Controller
 
     /**
      * @Route("/faq", name="faq")
+     * @Cache(maxage="0", public=false)
      *
      * @return Response
      */
@@ -86,6 +91,7 @@ class SiteController extends Controller
      *
      * @Route("/contact", name="contact")
      * @Method("GET")
+     * @Cache(maxage="0", public=false)
      *
      * @return Response
      */
@@ -137,6 +143,7 @@ class SiteController extends Controller
     /**
      * @Route("/thankyou", name="contact_success")
      * @Method("GET")
+     * @Cache(maxage="0", public=false)
      *
      * @return Response
      */
@@ -171,6 +178,4 @@ class SiteController extends Controller
 
         return $form;
     }
-
-
 }
