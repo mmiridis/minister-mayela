@@ -1,0 +1,12 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+
+{% set page_title = 'Wedding Minister' %}
+
+{% block body %}
+
+    {{ include('AppBundle::_menu.html.twig') }}
+
+    <div class="home-img"><img src="{{ asset('images/center-image.jpg') }}"/></div>
+
+{% endblock %}
