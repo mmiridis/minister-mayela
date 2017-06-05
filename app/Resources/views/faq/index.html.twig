@@ -1,0 +1,42 @@
+{% extends 'AppBundle::backend.html.twig' %}
+
+{% set page_title = "FAQs" %}
+
+{% block body %}
+
+    <div style="float: right; padding-top: 10px;">
+        <a href="{{ path('backend_faq_new') }}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i> Create a new faq</a>
+    </div>
+
+    <h1>{{ page_title }}</h1>
+
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>is active</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for faq in faqs %}
+            <tr>
+                <td><a href="{{ path('backend_faq_show', { 'id': faq.id }) }}">{{ faq.id }}</a></td>
+                <td>{{ faq.question }}</td>
+                <td>{{ faq.answer }}</td>
+                <td>{% if faq.isActive %}Yes{% else %}No{% endif %}</td>
+                <td style="text-align: right;">
+                    <div class="btn-group">
+                        {# Edit #}
+                        <a role="button" class="btn btn-default btn-xs" title="edit" href="{{ path('backend_faq_edit', {'id':faq.id}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        {# Delete#}
+                        <a title="delete" ref="#entity_delete_form" data-type="delete-submit" data-message="entity-delete" data-delete-id="{{ faq.id }}" class="dynamic btn btn-danger btn-xs{% if true %} disabled{% endif %}" role="button" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

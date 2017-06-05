@@ -31,16 +31,16 @@
     {% include "AppBundle::stylesheets.html.twig" %}
     {% block stylesheets %}{% endblock %}
 
-
-
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="assets/vendor/html5shiv/dist/html5shiv.min.js"></script>
     <script src="assets/vendor/Respond/dest/respond.min.js"></script>
     <![endif]-->
 
-
-    {% javascripts 'assets/vendor/jquery/dist/jquery.min.js' %}
+    {% javascripts
+    'assets/vendor/jquery/dist/jquery.min.js'
+    'assets/vendor/bootstrap-sass/assets/javascripts/bootstrap.min.js'
+    %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     {% block javascripts %}{% endblock %}
@@ -68,7 +68,7 @@
         <div class="container">
 
             {# include the menu and the page title on all pages but the home page #}
-            {% if app.request.requestUri|trim('/') != path('home')|trim('/') %}
+            {% if app.request.requestUri|trim('/') != path('home_no_locale')|trim('/') and app.request.requestUri|trim('/') != path('home')|trim('/') %}
                 {{ include('AppBundle::_menu.html.twig') }}
                 <h1>{{ page_title }}</h1>
             {% endif %}

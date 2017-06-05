@@ -1,0 +1,22 @@
+{% extends 'AppBundle::backend.html.twig' %}
+
+{% set page_title = "Add FAQ" %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/a2lixtranslationform/js/a2lix_translation_bootstrap.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+    <div style="float: right; padding-top: 10px;">
+        <a title="FAQ List" href="{{ path('backend_faq') }}" class="btn btn-default"><i class="glyphicon glyphicon-list"></i></a>
+    </div>
+
+    <h1>{{ page_title }}</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" class="btn btn-primary"/>
+    {{ form_end(form) }}
+
+{% endblock %}

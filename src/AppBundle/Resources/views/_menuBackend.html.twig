@@ -1,0 +1,6 @@
+<div class="menu backend">
+    <ul class="list-inline ">
+        <li><a href="{{ path('backend_faq') }}" {% if app.request.requestUri == path('home') %} class="selected"{% endif %}>FAQs</a></li>
+        <li><a href="{{ path('backend_faq') }}" {% if app.request.requestUri == path('aboutMe') %} class="selected"{% endif %}>Testimonials</a></li>
+    </ul>
+</div>

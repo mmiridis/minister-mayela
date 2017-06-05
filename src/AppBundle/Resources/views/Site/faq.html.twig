@@ -43,5 +43,21 @@
         </div>
 
     {% endfor %}
+    {% for faq in faqs %}
+        <div class="row faq-row">
+
+            <div class="col-sm-1 hidden-xs text-right">
+                <a class="faq-btn" href="#"><span class="glyphicon glyphicon-heart question"></span></a>
+            </div>
+            <div class="col-sm-10">
+                <div class="question">
+                    <a href="#" class="faq-btn">{{ faq.question }}</a>
+                </div>
+                <div class="answer">
+                    {{ faq.answer }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 
 {% endblock %}

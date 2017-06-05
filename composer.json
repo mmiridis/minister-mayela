@@ -19,12 +19,18 @@
             "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
         ]
     },
+    "minimum-stability" : "dev",
+    "prefer-stable" : true,
     "require": {
         "php": ">=5.5.9",
+        "a2lix/auto-form-bundle": "^0.1.0@beta",
+        "a2lix/i18n-doctrine-bundle": "^0.1.0",
+        "a2lix/translation-form-bundle": "^2.1",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-migrations-bundle": "^1.0",
         "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
+        "knplabs/doctrine-behaviors": "^1.4",
         "leafo/scssphp": "^0.6.7",
         "patchwork/jsqueeze": "^2.0",
         "phpunit/phpunit": "^5.7",

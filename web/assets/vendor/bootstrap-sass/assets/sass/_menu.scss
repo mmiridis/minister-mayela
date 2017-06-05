@@ -29,3 +29,35 @@ div.menu {
     }
 
 }
+
+div.menu.backend {
+
+    padding-top: 15px;
+    text-align: left;
+
+    ul {
+        margin: 0px auto;
+
+        li
+        {
+            margin-bottom: 10px;
+            a {
+                font-family: univers-light-normal, sans-serif;
+                color: #CCCCCC;
+                text-decoration: none;
+                letter-spacing: 1px;
+                padding-bottom: 3px;
+
+                &:hover {
+                    border-bottom: 2px solid #FFFFFF;
+                    color: #FFFFFF;
+                }
+
+                &.selected {
+                    border-bottom: 1px solid #CCCCCC;
+                }
+            }
+        }
+    }
+
+}
