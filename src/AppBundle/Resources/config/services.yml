@@ -5,9 +5,9 @@ services:
     app_bundle.contact.listener:
         class: AppBundle\Listener\ContactListener
         arguments:
-            em: @doctrine.orm.entity_manager
-            templating: @templating
-            mailer: @mailer
-            translator: @translator
+            - "@doctrine.orm.entity_manager"
+            - "@templating.engine.twig"
+            - "@mailer"
+            - "@translator"
         tags:
             - { name: kernel.event_listener, event: contact.event.created, method: onContactCreatedEvent }

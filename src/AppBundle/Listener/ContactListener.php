@@ -2,10 +2,10 @@
 
 namespace AppBundle\Listener;
 
-use AppBundle\Event\ContactEvent;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use AppBundle\Event\ContactEvent;
 
 /**
  * Class ContactListener
@@ -17,11 +17,18 @@ class ContactListener
     protected $em;
     /** @var \Swift_Mailer $mailer */
     protected $mailer;
-    /** @var \Swift_Transport_EsmtpTransport $transport */
-    protected $transport;
+    /** @var EngineInterface $templating */
+    protected $templating;
     /** @var TranslatorInterface $translator */
     protected $translator;
 
+    /**
+     * ContactListener constructor.
+     * @param EntityManager $em
+     * @param EngineInterface $templating
+     * @param \Swift_Mailer $mailer
+     * @param TranslatorInterface $translator
+     */
     public function __construct(EntityManager $em, EngineInterface $templating, \Swift_Mailer $mailer, TranslatorInterface $translator)
     {
         $this->em         = $em;

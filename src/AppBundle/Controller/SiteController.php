@@ -50,7 +50,7 @@ class SiteController extends Controller
     public function galleryAction()
     {
         $finder = new Finder();
-        $finder->files()->in($this->get('kernel')->getRootDir() . '/../web/images/gallery');
+        $finder->files()->in($this->get('kernel')->getRootDir() . '/../web/images/gallery')->depth('== 0');
 
         $images = [];
         foreach ($finder as $file) {
