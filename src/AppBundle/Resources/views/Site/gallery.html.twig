@@ -4,6 +4,16 @@
 
 {% block stylesheets %}
     <link href="/assets/vendor/magnific-popup/dist/magnific-popup.css" rel="stylesheet"/>
+
+    <style>
+        div#gallery-container {}
+        div#gallery-container img.image-thumb {
+            width:120px;
+            height:120px;
+            border: 2px solid #F6BFC5;
+            margin-top: 4px;
+        }
+    </style>
 {% endblock %}
 
 {% block javascripts %}
@@ -24,7 +34,7 @@
                 image: {
                     tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
                     titleSrc: function (item) {
-                        return item.el.attr('title') + '';
+                        return item.el.attr('title') + '<br/>' + $(item.el).data('description');
                     }
                 }
             });
@@ -35,10 +45,10 @@
 
 {% block body %}
 
-    <div class="popup-gallery">
-        {% for image in images %}
-            <a href="{{ asset('images/gallery/' ~ image.name) }}" title="{{ image.title }}">
-                <img src="{{ asset('images/gallery/tn/' ~ image.name) }}" width="120" height="120" style="border: 2px solid #F6BFC5; margin-top: 4px;"/>
+    <div id="gallery-container" class="popup-gallery">
+        {% for picture in pictures %}
+            <a href="{{ vich_uploader_asset(picture, 'imageFile') }}" title="{{ picture.caption }}" data-description="{{ picture.description }}">
+                <img class="image-thumb" src="{{ vich_uploader_asset(picture, 'imageFile')|imagine_filter('picture_thumb') }}" />
             </a>
         {% endfor %}
     </div>

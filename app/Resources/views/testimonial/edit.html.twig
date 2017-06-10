@@ -1,0 +1,34 @@
+{% extends 'AppBundle::backend.html.twig' %}
+
+{% set page_title = "Edit Testimonial" %}
+
+{% block body %}
+
+    {{ form(delete_form, {attr:{id:'delete-form'}}) }}
+
+    <div style="float: right; padding-top: 10px;" class="btn-group">
+        <a title="Testimonials List" href="{{ path('backend_testimonial') }}" class="btn btn-default"><i class="glyphicon glyphicon-list"></i></a>
+        <a title="Delete Testimonial" href="#" onclick="if(confirm('sure?')){$('#delete-form').submit()}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+    </div>
+
+    <h1>{{ page_title }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.content) }}
+    {{ form_row(form.signature) }}
+    <div class="form-group">
+        {{ form_label(form.imageFile) }}
+        {{ form_widget(form.imageFile) }}
+        {% if testimonial.image %}
+            <img width="120" height="120" src="{{ vich_uploader_asset(testimonial, 'imageFile') }}"
+                 alt="{{ testimonial.signature }}"/>
+        {% else %}
+            <img width="120" height="120" src="{{ asset('bundles/app/images/no-testimonial-image.png') }}"
+                 alt="{{ testimonial.signature }}"/>
+        {% endif %}
+    </div>
+    {{ form_row(form.isActive) }}
+    <input type="submit" value="update" class="btn btn-primary"/>
+    {{ form_end(form) }}
+
+{% endblock %}

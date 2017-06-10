@@ -1,0 +1,60 @@
+{% extends 'AppBundle::backend.html.twig' %}
+
+{% set page_title = "Gallery" %}
+
+{% block javascripts %}
+    {% javascripts
+    'assets/vendor/jquery-sortable/source/js/jquery-sortable-min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script>{{ include('@App/sort.js.twig', { route:'backend_gallery_sort'}) }}</script>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>{{ include('@App/sort.css.twig') }}</style>
+{% endblock %}
+
+
+{% block body %}
+
+    <div style="float: right; padding-top: 10px;">
+        <a href="{{ path('backend_gallery_new') }}" class="btn btn-sm btn-primary">
+            <i class="glyphicon glyphicon-plus"></i> Add a new picture
+        </a>
+    </div>
+
+    <h1>{{ page_title }}</h1>
+
+    <table id="sortable-table" class="table table-condensed sorted_table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Image</th>
+            <th>Caption</th>
+            <th>Description</th>
+            <th class="center">active</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for picture in pictures %}
+            <tr data-entity-id="{{ picture.id }}" class="sortable">
+                <td>{{ picture.id }}</td>
+                <td>
+                    <img width="50" height="50" src="{{ vich_uploader_asset(picture, 'imageFile')|imagine_filter('picture_thumb') }}" alt="{{ picture.caption }}"/>
+                </td>
+                <td>{{ picture.caption }}</td>
+                <td>{{ picture.description|truncate(50) }}</td>
+                <td class="center">{% if picture.isActive %}<i class="glyphicon glyphicon-ok"></i>{% else %}<i class="glyphicon glyphicon-minus"></i>{% endif %}</td>
+                <td class="right">
+                    <div class="btn-group">
+                        <a role="button" class="btn btn-default btn-sm" title="edit" href="{{ path('backend_gallery_edit', {'id':picture.id}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

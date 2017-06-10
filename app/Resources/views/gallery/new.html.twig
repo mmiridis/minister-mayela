@@ -1,0 +1,18 @@
+{% extends 'AppBundle::backend.html.twig' %}
+
+{% set page_title = "Add Testimonial" %}
+
+{% block body %}
+
+    <div style="float: right; padding-top: 10px;">
+        <a title="FAQ List" href="{{ path('backend_testimonial') }}" class="btn btn-default"><i class="glyphicon glyphicon-list"></i></a>
+    </div>
+
+    <h1>{{ page_title }}</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" />
+    {{ form_end(form) }}
+
+{% endblock %}

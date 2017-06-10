@@ -37,7 +37,7 @@ class ContactController extends Controller
             ->getQuery()
             ->getResult();
 
-        return $this->render('AppBundle:Contact:index.html.twig', [
+        return $this->render('contact/index.html.twig', [
             'entities' => $entities,
         ]);
     }
@@ -61,7 +61,7 @@ class ContactController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('AppBundle:Contact:show.html.twig', [
+        return $this->render('contact/show.html.twig', [
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ]);
@@ -107,7 +107,6 @@ class ContactController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('contact_delete', ['id' => $id]))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', ['label' => 'Delete'])
             ->getForm();
     }
 }

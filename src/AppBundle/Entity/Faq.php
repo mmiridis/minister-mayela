@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Knp\DoctrineBehaviors\Model\Translatable\Translatable;
 
 /**
@@ -25,6 +26,14 @@ class Faq
     private $id;
 
     /**
+     * @var integer $position
+     *
+     * @Gedmo\SortablePosition()
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="is_active", type="boolean")
@@ -40,6 +49,30 @@ class Faq
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     *
+     * @return Faq
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     /**
@@ -71,6 +104,8 @@ class Faq
         if (in_array($method, ['get_action', 'getBatch'], true)) {
             return;
         }
-        $method = ('get' === substr($method, 0, 3)) ? $method : 'get'.ucfirst($method);
+        $method = ('get' === substr($method, 0, 3)) ? $method : 'get' . ucfirst($method);
+
         return $this->proxyCurrentLocaleTranslation($method, $arguments);
-    }}
+    }
+}

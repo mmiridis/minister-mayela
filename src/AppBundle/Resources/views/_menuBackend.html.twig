@@ -1,6 +1,10 @@
 <div class="menu backend">
     <ul class="list-inline ">
-        <li><a href="{{ path('backend_faq') }}" {% if app.request.requestUri == path('home') %} class="selected"{% endif %}>FAQs</a></li>
-        <li><a href="{{ path('backend_faq') }}" {% if app.request.requestUri == path('aboutMe') %} class="selected"{% endif %}>Testimonials</a></li>
+        <li><a href="{{ path('backend_contacts') }}" {% if app.request.requestUri == path('backend_contacts') %} class="selected"{% endif %}>Contacts</a></li>
+        <li><a href="{{ path('backend_gallery') }}" {% if app.request.requestUri == path('backend_gallery') %} class="selected"{% endif %}>Gallery</a></li>
+        <li><a href="{{ path('backend_faq') }}" {% if app.request.requestUri == path('backend_faq') %} class="selected"{% endif %}>FAQs</a></li>
+        <li><a href="{{ path('backend_testimonial') }}" {% if app.request.requestUri == path('backend_testimonial') %} class="selected"{% endif %}>Testimonials</a></li>
+        <li></li>
+        <li style="float: right;"><a target="minister-home" href="{{ path('home') }}">Frontend <i class="glyphicon glyphicon-new-window"></i></a></li>
     </ul>
 </div>

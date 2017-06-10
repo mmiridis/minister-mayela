@@ -1,0 +1,63 @@
+{% extends 'AppBundle::backend.html.twig' %}
+
+{% set page_title = "Testimonials" %}
+
+{% block javascripts %}
+    {% javascripts
+    'assets/vendor/jquery-sortable/source/js/jquery-sortable-min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script>{{ include('@App/sort.js.twig', { route:'backend_testimonial_sort'}) }}</script>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>{{ include('@App/sort.css.twig') }}</style>
+{% endblock %}
+
+
+{% block body %}
+
+    <div style="float: right; padding-top: 10px;">
+        <a href="{{ path('backend_testimonial_new') }}" class="btn btn-sm btn-primary"><i
+                    class="glyphicon glyphicon-plus"></i> Create a new testimonial</a>
+    </div>
+
+    <h1>{{ page_title }}</h1>
+
+    <table id="sortable-table" class="table table-condensed sorted_table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Image</th>
+            <th>Content</th>
+            <th>Signature</th>
+            <th class="center">active</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for testimonial in testimonials %}
+            <tr data-entity-id="{{ testimonial.id }}" class="sortable">
+                <td>{{ testimonial.id }}</td>
+                <td>
+                    {% if testimonial.image %}
+                        <img width="50" height="50" src="{{ vich_uploader_asset(testimonial, 'imageFile')|imagine_filter('testimonial_thumb') }}" alt="{{ testimonial.signature }}"/>
+                    {% else %}
+                        <img width="50" height="50" src="{{ asset('bundles/app/images/no-testimonial-image.png')|imagine_filter('testimonial_thumb') }}" alt="{{ testimonial.signature }}"/>
+                    {% endif %}
+                </td>
+                <td>{{ testimonial.content }}</td>
+                <td>{{ testimonial.signature }}</td>
+                <td class="center">{% if testimonial.isActive %}<i class="glyphicon glyphicon-ok"></i>{% else %}<i class="glyphicon glyphicon-minus"></i>{% endif %}</td>
+                <td class="right">
+                    <div class="btn-group">
+                        <a role="button" class="btn btn-default btn-sm" title="edit" href="{{ path('backend_testimonial_edit', {'id':testimonial.id}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

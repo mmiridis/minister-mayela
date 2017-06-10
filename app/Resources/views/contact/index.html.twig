@@ -1,0 +1,47 @@
+{% extends '@App/backend.html.twig' %}
+
+{% set page_title = "Contact Requests" %}
+
+{% block javascripts %}
+    <script src="/assets/vendor/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
+    <script>
+        $(function(){
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+{% endblock %}
+
+{% block body -%}
+
+    <h1>{{ page_title }}</h1>
+
+    <table class="table table-condensed table-hover">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Received</th>
+            <th>Name(s)</th>
+            <th>Wedding date</th>
+            <th>Location</th>
+            <th>Message</th>
+            {#<th></th>#}
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.created|date('d/m/Y H:i') }}</td>
+                <td>{{ entity.name }}</td>
+                <td>{% if entity.weddingDate %}{{ entity.weddingDate|date('D d/M/Y') }}{% endif %}</td>
+                <td>{{ entity.location }}</td>
+                <td>
+                    <a href="#" data-toggle="popover" data-trigger="focus" data-placement="left" title="{{ entity.name }} | {{ entity.created|date('d/m/Y') }}" data-content="{{ entity.message }}">
+                        {{ entity.message|truncate(20) }}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -27,11 +28,33 @@ class FaqController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $faqs = $em->getRepository('AppBundle:Faq')->findAll();
+        $faqs = $em->getRepository('AppBundle:Faq')->findAllSorted();
 
         return $this->render('faq/index.html.twig', [
             'faqs' => $faqs,
         ]);
+    }
+
+    /**
+     * @Route("/{id}/sort/{position}", name="backend_faq_sort")
+     * @param int $id
+     * @param int $position
+     * @return JsonResponse
+     */
+    public function sortAction($id, $position)
+    {
+        $em = $this->getDoctrine()->getManager();
+        try {
+            /** @var Faq $faq */
+            $faq = $em->getRepository('AppBundle:Testimonial')->find($id);
+            $faq->setPosition($position);
+            $em->persist($faq);
+            $em->flush();
+
+            return new JsonResponse(['rc' => 200]);
+        } catch (\Exception $e) {
+            return new JsonResponse(['rc' => 500, 'message' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -64,25 +87,6 @@ class FaqController extends Controller
     }
 
     /**
-     * Finds and displays a faq entity.
-     *
-     * @Route("/{id}", name="backend_faq_show")
-     * @Method("GET")
-     *
-     * @param Faq $faq
-     * @return Response
-     */
-    public function showAction(Faq $faq)
-    {
-        $deleteForm = $this->createDeleteForm($faq);
-
-        return $this->render('faq/show.html.twig', [
-            'faq'         => $faq,
-            'delete_form' => $deleteForm->createView(),
-        ]);
-    }
-
-    /**
      * Displays a form to edit an existing faq entity.
      *
      * @Route("/{id}/edit", name="backend_faq_edit")
@@ -94,11 +98,10 @@ class FaqController extends Controller
      */
     public function editAction(Request $request, Faq $faq)
     {
-        $deleteForm = $this->createDeleteForm($faq);
-        $editForm   = $this->createForm('AppBundle\Form\FaqType', $faq);
-        $editForm->handleRequest($request);
+        $form = $this->createForm('AppBundle\Form\FaqType', $faq);
+        $form->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('backend_faq');
@@ -106,8 +109,8 @@ class FaqController extends Controller
 
         return $this->render('faq/edit.html.twig', [
             'faq'         => $faq,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'form'        => $form->createView(),
+            'delete_form' => $this->createDeleteForm($faq)->createView()
         ]);
     }
 

@@ -1,5 +1,18 @@
 {% extends 'AppBundle::backend.html.twig' %}
 
+{% block javascripts %}
+    {% javascripts
+    'assets/vendor/jquery-sortable/source/js/jquery-sortable-min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script>{{ include('@App/sort.js.twig', { route:'backend_faq_sort'}) }}</script>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>{{ include('@App/sort.css.twig') }}</style>
+{% endblock %}
+
 {% set page_title = "FAQs" %}
 
 {% block body %}
@@ -10,29 +23,32 @@
 
     <h1>{{ page_title }}</h1>
 
-    <table class="table table-condensed">
+    <table id="sortable-table" class="table table-condensed sorted_table">
         <thead>
             <tr>
                 <th>#</th>
-                <th>Question</th>
-                <th>Answer</th>
-                <th>is active</th>
+                <th>Question/Answer</th>
+                <th class="center">active</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
         {% for faq in faqs %}
-            <tr>
-                <td><a href="{{ path('backend_faq_show', { 'id': faq.id }) }}">{{ faq.id }}</a></td>
-                <td>{{ faq.question }}</td>
-                <td>{{ faq.answer }}</td>
-                <td>{% if faq.isActive %}Yes{% else %}No{% endif %}</td>
-                <td style="text-align: right;">
+            <tr data-entity-id="{{ faq.id }}" class="sortable">
+                <td>{{ faq.id }}</td>
+                <td>
+                    <b>{{ faq.question }}</a></b>
+                    <br/>
+                    {% if faq.answer|length > 80 %}
+                        <a href="javascript:void(0)" title="{{ faq.answer }}">{{ faq.answer|truncate(80) }}</a>
+                    {% else %}
+                        {{ faq.answer }}
+                    {% endif %}
+                </td>
+                <td class="center">{% if faq.isActive %}<i class="glyphicon glyphicon-ok"></i>{% else %}<i class="glyphicon glyphicon-minus"></i>{% endif %}</td>
+                <td class="right">
                     <div class="btn-group">
-                        {# Edit #}
-                        <a role="button" class="btn btn-default btn-xs" title="edit" href="{{ path('backend_faq_edit', {'id':faq.id}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
-                        {# Delete#}
-                        <a title="delete" ref="#entity_delete_form" data-type="delete-submit" data-message="entity-delete" data-delete-id="{{ faq.id }}" class="dynamic btn btn-danger btn-xs{% if true %} disabled{% endif %}" role="button" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a role="button" class="btn btn-default btn-sm" title="edit" href="{{ path('backend_faq_edit', {'id':faq.id}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
                     </div>
                 </td>
             </tr>

@@ -1,0 +1,47 @@
+$(function () {
+    var oldIndex;
+    $('#sortable-table').sortable({
+        containerSelector: 'table',
+        itemPath: '> tbody',
+        itemSelector: 'tr',
+        placeholder: '<tr class="placeholder"/>',
+        vertical: true,
+        onDragStart: function ($item, container, _super) {
+            oldIndex = $item.index();
+            $item.appendTo($item.parent());
+            _super($item, container);
+        },
+        onDrop: function ($item, container, _super) {
+            var newIndex = $item.index();
+
+            if (newIndex != oldIndex) {
+                $item.closest('table').find('tbody tr').each(function (i, row) {
+                    row = $(row);
+                    if (newIndex < oldIndex) {
+                        row.children().eq(newIndex).before(row.children()[oldIndex]);
+                    } else if (newIndex > oldIndex) {
+                        row.children().eq(newIndex).after(row.children()[oldIndex]);
+                    }
+                });
+
+                var entityId = $item.data('entity-id');
+
+                var url = '{{ path(route, {id:999,position:777}) }}'
+                    .replace('999', entityId)
+                    .replace('777', newIndex)
+                ;
+                console.log(entityId, newIndex, oldIndex, url);
+
+                $.post(url, {}, function (data) {
+                    if(data.rc != 200) {
+                        alert(data);
+                    }
+                });
+
+            }
+
+            _super($item, container);
+        }
+    });
+    console.log('initialized');
+});

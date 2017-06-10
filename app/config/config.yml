@@ -18,7 +18,7 @@ a2lix_translation_form:
 
 framework:
     #esi: ~
-    #translator: { fallbacks: ['%locale%'] }
+    translator: { fallbacks: ['%locale%'] }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -107,3 +107,28 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        gallery_images:
+            uri_prefix:         %app.path.gallery_images%
+            upload_destination: %kernel.root_dir%/../web/images/gallery
+        testimonial_images:
+            uri_prefix:         %app.path.testimonial_images%
+            upload_destination: %kernel.root_dir%/../web/images/testimonials
+
+liip_imagine:
+    filter_sets:
+        picture_thumb:
+            quality: 100
+            filters:
+                thumbnail: { size: [120, 120], mode: outbound }
+        testimonial_image:
+            quality: 100
+            filters:
+                thumbnail: { size: [120, 120], mode: outbound }
+        testimonial_thumb:
+            quality: 100
+            filters:
+                thumbnail: { size: [50, 50], mode: outbound }

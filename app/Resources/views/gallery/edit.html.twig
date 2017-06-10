@@ -1,0 +1,31 @@
+{% extends 'AppBundle::backend.html.twig' %}
+
+{% set page_title = "Edit Picture" %}
+
+{% block body %}
+
+    {{ form(delete_form, {attr:{id:'delete-form'}}) }}
+
+    <div style="float: right; padding-top: 10px;" class="btn-group">
+        <a title="Pictures List" href="{{ path('backend_gallery') }}" class="btn btn-default"><i
+                    class="glyphicon glyphicon-list"></i></a>
+        <a title="Delete Picture" href="#" onclick="if(confirm('sure?')){$('#delete-form').submit()}"
+           class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+    </div>
+
+    <h1>{{ page_title }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.caption) }}
+    {{ form_row(form.description) }}
+    <div class="form-group">
+        {{ form_label(form.imageFile) }}
+        {{ form_widget(form.imageFile) }}
+        <img width="120" height="120" src="{{ vich_uploader_asset(picture, 'imageFile') }}" alt="{{ picture.caption }}"/>
+    </div>
+    {{ form_row(form.isActive) }}
+
+    <input type="submit" value="update" class="btn btn-primary"/>
+    {{ form_end(form) }}
+
+{% endblock %}
