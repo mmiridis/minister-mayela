@@ -49,18 +49,6 @@ class BackendController extends Controller
      */
     public function galleryAction()
     {
-//        $finder = new Finder();
-//        $finder->files()->in($this->get('kernel')->getRootDir() . '/../web/images/gallery')->depth('== 0');
-//
-//        $images = [];
-//        foreach ($finder as $file) {
-//
-//            $images[] = [
-//                'name'  => $file->getRelativePathname(),
-//                'title' => basename($file->getRelativePathname())
-//            ];
-//        }
-//
         return $this->render('AppBundle:Site:gallery.html.twig', [
             'pictures' => $this->getDoctrine()->getRepository('AppBundle:Picture')->findAllActive()
 
