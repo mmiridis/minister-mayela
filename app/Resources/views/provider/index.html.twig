@@ -1,0 +1,60 @@
+{% extends 'AppBundle::backend.html.twig' %}
+
+{% block javascripts %}
+    {% javascripts
+    'assets/vendor/jquery-sortable/source/js/jquery-sortable-min.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script>{{ include('@App/sort.js.twig', { route:'backend_provider_sort'}) }}</script>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>{{ include('@App/sort.css.twig') }}</style>
+{% endblock %}
+
+{% set page_title = "Providers" %}
+
+{% block body %}
+
+    <div style="float: right; padding-top: 10px;">
+        <a href="{{ path('backend_provider_new') }}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i> Create a new provider</a>
+    </div>
+
+    <h1>{{ page_title }}</h1>
+
+    <table id="sortable-table" class="table table-condensed sorted_table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Categroy</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th class="center">active</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for provider in providers %}
+            <tr data-entity-id="{{ provider.id }}" class="sortable">
+                <td>{{ provider.id }}</td>
+                <td>{{ provider.category }}</td>
+                <td>{{ provider.name }}</td>
+                <td>
+                    {% if provider.description|length > 80 %}
+                        <a href="javascript:void(0)" title="{{ provider.description }}">{{ provider.description|truncate(80) }}</a>
+                    {% else %}
+                        {{ provider.description }}
+                    {% endif %}
+                </td>
+                <td class="center">{% if provider.isActive %}<i class="glyphicon glyphicon-ok"></i>{% else %}<i class="glyphicon glyphicon-minus"></i>{% endif %}</td>
+                <td class="right">
+                    <div class="btn-group">
+                        <a role="button" class="btn btn-default btn-sm" title="edit" href="{{ path('backend_provider_edit', {'id':provider.id}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -9,34 +9,34 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use AppBundle\Entity\Faq;
+use AppBundle\Entity\Provider;
 
 /**
- * Faq controller.
+ * Provider controller.
  *
- * @Route("/backend/faq")
+ * @Route("/backend/services")
  */
-class FaqController extends Controller
+class ProviderController extends Controller
 {
     /**
-     * Lists all faq entities.
+     * Lists all provider entities.
      *
-     * @Route("", name="backend_faq")
+     * @Route("", name="backend_provider")
      * @Method("GET")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $faqs = $em->getRepository('AppBundle:Faq')->findAllSorted();
+        $providers = $em->getRepository('AppBundle:Provider')->findAllSorted();
 
-        return $this->render('faq/index.html.twig', [
-            'faqs' => $faqs,
+        return $this->render('provider/index.html.twig', [
+            'providers' => $providers,
         ]);
     }
 
     /**
-     * @Route("/{id}/sort/{position}", name="backend_faq_sort")
+     * @Route("/{id}/sort/{position}", name="backend_provider_sort")
      * @param int $id
      * @param int $position
      * @return JsonResponse
@@ -45,10 +45,10 @@ class FaqController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         try {
-            /** @var Faq $faq */
-            $faq = $em->getRepository('AppBundle:Faq')->find($id);
-            $faq->setPosition($position);
-            $em->persist($faq);
+            /** @var Provider $provider */
+            $provider = $em->getRepository('AppBundle:Provider')->find($id);
+            $provider->setPosition($position);
+            $em->persist($provider);
             $em->flush();
 
             return new JsonResponse(['rc' => 200]);
@@ -58,9 +58,9 @@ class FaqController extends Controller
     }
 
     /**
-     * Creates a new faq entity.
+     * Creates a new provider entity.
      *
-     * @Route("/new", name="backend_faq_new")
+     * @Route("/new", name="backend_provider_new")
      * @Method({"GET", "POST"})
      *
      * @param Request $request
@@ -68,87 +68,87 @@ class FaqController extends Controller
      */
     public function newAction(Request $request)
     {
-        $faq  = new Faq();
-        $form = $this->createForm('AppBundle\Form\FaqType', $faq);
+        $provider = new Provider();
+        $form     = $this->createForm('AppBundle\Form\ProviderType', $provider);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($faq);
+            $em->persist($provider);
             $em->flush();
 
-            return $this->redirectToRoute('backend_faq');
+            return $this->redirectToRoute('backend_provider');
         }
 
-        return $this->render('faq/new.html.twig', [
-            'faq'  => $faq,
-            'form' => $form->createView(),
+        return $this->render('provider/new.html.twig', [
+            'provider' => $provider,
+            'form'     => $form->createView(),
         ]);
     }
 
     /**
-     * Displays a form to edit an existing faq entity.
+     * Displays a form to edit an existing provider entity.
      *
-     * @Route("/{id}/edit", name="backend_faq_edit")
+     * @Route("/{id}/edit", name="backend_provider_edit")
      * @Method({"GET", "POST"})
      *
      * @param Request $request
-     * @param Faq $faq
+     * @param Provider $provider
      * @return RedirectResponse|Response
      */
-    public function editAction(Request $request, Faq $faq)
+    public function editAction(Request $request, Provider $provider)
     {
-        $form = $this->createForm('AppBundle\Form\FaqType', $faq);
+        $form = $this->createForm('AppBundle\Form\ProviderType', $provider);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('backend_faq');
+            return $this->redirectToRoute('backend_provider');
         }
 
-        return $this->render('faq/edit.html.twig', [
-            'faq'         => $faq,
+        return $this->render('provider/edit.html.twig', [
+            'provider'    => $provider,
             'form'        => $form->createView(),
-            'delete_form' => $this->createDeleteForm($faq)->createView()
+            'delete_form' => $this->createDeleteForm($provider)->createView()
         ]);
     }
 
     /**
-     * Deletes a faq entity.
+     * Deletes a provider entity.
      *
-     * @Route("/{id}", name="backend_faq_delete")
+     * @Route("/{id}", name="backend_provider_delete")
      * @Method("DELETE")
      *
      * @param Request $request
-     * @param Faq $faq
+     * @param Provider $provider
      * @return RedirectResponse
      */
-    public function deleteAction(Request $request, Faq $faq)
+    public function deleteAction(Request $request, Provider $provider)
     {
-        $form = $this->createDeleteForm($faq);
+        $form = $this->createDeleteForm($provider);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($faq);
+            $em->remove($provider);
             $em->flush();
         }
 
-        return $this->redirectToRoute('backend_faq');
+        return $this->redirectToRoute('backend_provider');
     }
 
     /**
-     * Creates a form to delete a faq entity.
+     * Creates a form to delete a provider entity.
      *
-     * @param Faq $faq The faq entity
+     * @param Provider $provider The provider entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Faq $faq)
+    private function createDeleteForm(Provider $provider)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('backend_faq_delete', ['id' => $faq->getId()]))
+            ->setAction($this->generateUrl('backend_provider_delete', ['id' => $provider->getId()]))
             ->setMethod('DELETE')
             ->getForm();
     }

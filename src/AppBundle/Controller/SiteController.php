@@ -51,18 +51,6 @@ class SiteController extends Controller
      */
     public function galleryAction()
     {
-//        $finder = new Finder();
-//        $finder->files()->in($this->get('kernel')->getRootDir() . '/../web/images/gallery')->depth('== 0');
-//
-//        $images = [];
-//        foreach ($finder as $file) {
-//
-//            $images[] = [
-//                'name'  => $file->getRelativePathname(),
-//                'title' => basename($file->getRelativePathname())
-//            ];
-//        }
-//
         return $this->render('AppBundle:Site:gallery.html.twig', [
             'pictures' => $this->getDoctrine()->getRepository('AppBundle:Picture')->findAllActive()
 
@@ -92,6 +80,19 @@ class SiteController extends Controller
     {
         return $this->render('AppBundle:Site:faq.html.twig',[
             'faqs' => $this->getDoctrine()->getRepository('AppBundle:Faq')->findAllActive()
+        ]);
+    }
+
+    /**
+     * @Route("/{_locale}/services", name="services", requirements={ "_locale" = "%app.locales%" })
+     * @Cache(maxage="0", public=false)
+     *
+     * @return Response
+     */
+    public function providersAction()
+    {
+        return $this->render('AppBundle:Site:provider.html.twig', [
+            'groupedProviders' => $this->getDoctrine()->getRepository('AppBundle:Provider')->findAllActive()
         ]);
     }
 

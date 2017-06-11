@@ -11,3 +11,8 @@ services:
             - "@translator"
         tags:
             - { name: kernel.event_listener, event: contact.event.created, method: onContactCreatedEvent }
+
+    twig.obfuscate_email_extension:
+        class: AppBundle\Twig\EmailObfuscatorExtension
+        tags:
+            - { name: twig.extension }

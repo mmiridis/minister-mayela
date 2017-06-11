@@ -21,7 +21,7 @@ use AppBundle\Form\ContactType;
 class BackendController extends Controller
 {
     /**
-     * @Route("/backend", name="backend_home")
+     * @Route("/backend/", name="backend_home")
      *
      * @return Response
      */

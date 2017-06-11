@@ -85,9 +85,8 @@
                         <a title="Skype" href="" class="social-button skype">&nbsp;</a>
                     </div>
                     <div class="col-xs-1 button text-right">
-                        <a title="Email" href="mailto:mayela@miridis.com" class="social-button email">&nbsp;</a>
+                        {{ "mayela@miridis.com"|obfuscateEmailLink({title:"Email", class:"social-button email"}) }}
                     </div>
-
                 </div>
             </div>
         </div>

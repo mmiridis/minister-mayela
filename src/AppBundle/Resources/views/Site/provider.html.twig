@@ -1,0 +1,35 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% set page_title = 'Services' %}
+
+{% block body %}
+
+    <p>During the last years I have been officiating weddings, I have had the chance to get to know ... and that I can
+        recommend.</p>
+
+    <div class="provider">
+    {% for category, providers in groupedProviders %}
+        <div class="category">{{ category }}</div>
+        {% for provider in providers %}
+            <div class="row{% if not loop.last %} separator{% endif %}">
+                <div class="col-sm-12">
+                    <div class="name"><i style="color: #999;" class="glyphicon glyphicon-camera"></i> {{ provider.name }}</div>
+                    <div class="description">{{ provider.description|nl2br }}</div>
+                    <div class="contact">
+                        {% if provider.phone %}
+                        <i class="glyphicon glyphicon-phone-alt"></i> {{ provider.phone }} |
+                        {% endif %}
+                        {% if provider.url %}
+                        <i class="glyphicon glyphicon-globe"></i> <a href="http://{{ provider.url }}"> {{ provider.url }}</a> |
+                        {% endif %}
+                        {% if provider.email %}
+                        <i class="glyphicon glyphicon-envelope"></i> {{ provider.email|obfuscateEmailLink }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    {% endfor %}
+    </div>
+{% endblock %}

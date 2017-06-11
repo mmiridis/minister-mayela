@@ -5,6 +5,7 @@
         <li><a href="{{ path('gallery') }}"      {% if app.request.requestUri == path('gallery') %} class="selected"{% endif %}>GALLERY</a></li>
         <li><a href="{{ path('testimonials') }}" {% if app.request.requestUri == path('testimonials') %} class="selected"{% endif %}>TESTIMONIALS</a></li>
         <li><a href="{{ path('faq') }}"          {% if app.request.requestUri == path('faq') %} class="selected"{% endif %}>FAQ</a></li>
+        {#<li><a href="{{ path('services') }}"          {% if app.request.requestUri == path('services') %} class="selected"{% endif %}>Services</a></li>#}
         <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
         <li><a href="{{ path('contact') }}"      {% if app.request.requestUri == path('contact') %} class="selected"{% endif %}>@CONTACT ME</a></li>
     </ul>

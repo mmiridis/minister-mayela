@@ -7,12 +7,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Knp\DoctrineBehaviors\Model\Translatable\Translatable;
 
 /**
- * Faq
+ * Provider
  *
- * @ORM\Table(name="faq")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\FaqRepository")
+ * @ORM\Table(name="provider")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProviderRepository")
  */
-class Faq
+class Provider
 {
     use Translatable;
 
@@ -24,6 +24,34 @@ class Faq
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="category", type="string", length=255)
+     */
+    private $category;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=50, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     */
+    private $url;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=50, nullable=true)
+     */
+    private $email;
 
     /**
      * @var integer $position
@@ -68,11 +96,107 @@ class Faq
     }
 
     /**
+     * Set category
+     *
+     * @param string $category
+     *
+     * @return Provider
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     *
+     * @return Provider
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return Provider
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Provider
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
      * Set position
      *
      * @param integer $position
      *
-     * @return Faq
+     * @return Provider
      */
     public function setPosition($position)
     {
@@ -96,7 +220,7 @@ class Faq
      *
      * @param boolean $isActive
      *
-     * @return Faq
+     * @return Provider
      */
     public function setIsActive($isActive)
     {
@@ -120,7 +244,7 @@ class Faq
      *
      * @param \DateTime $created
      *
-     * @return Faq
+     * @return Provider
      */
     public function setCreated($created)
     {
@@ -144,7 +268,7 @@ class Faq
      *
      * @param \DateTime $updated
      *
-     * @return Faq
+     * @return Provider
      */
     public function setUpdated($updated)
     {
