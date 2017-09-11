@@ -2,7 +2,7 @@
 
 {% block javascripts %}
     {% javascripts
-    'assets/vendor/jquery-sortable/source/js/jquery-sortable-min.js' %}
+    'assets/vendor/jquery-ui/jquery-ui.min.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
@@ -26,6 +26,7 @@
     <table id="sortable-table" class="table table-condensed sorted_table">
         <thead>
             <tr>
+                <th>&nbsp;</th>
                 <th>#</th>
                 <th>Categroy</th>
                 <th>Name</th>
@@ -34,9 +35,10 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="sortable">
         {% for provider in providers %}
             <tr data-entity-id="{{ provider.id }}" class="sortable">
+                <td class="handle">&nbsp;</td>
                 <td>{{ provider.id }}</td>
                 <td>{{ provider.category }}</td>
                 <td>{{ provider.name }}</td>

@@ -1,29 +1,9 @@
-body.dragging, body.dragging * {
-    cursor: move !important;
+#sortable td.handle {
+    width: 32px; cursor: pointer;
+    background: url('/bundles/app/images/drag-handle-24.png') no-repeat center;
 }
 
-.dragged {
-    position: absolute;
-    opacity: 0.5;
-    z-index: 2000;
-}
 
-table.sorted_table li.placeholder {
-    position: relative;
-    /** More li styles **/
-}
-
-table.sorted_table li.placeholder:before {
-    position: absolute;
-    cursor: move !important;
-}
-tr.sortable { cursor: pointer; }
-
-.sorted_table tr.placeholder {
-    display: block;
-    background: red;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    border: none;
+#sortable td {
+    vertical-align: middle;
 }

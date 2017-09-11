@@ -4,7 +4,7 @@
 
 {% block javascripts %}
     {% javascripts
-    'assets/vendor/jquery-sortable/source/js/jquery-sortable-min.js' %}
+    'assets/vendor/jquery-ui/jquery-ui.min.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
@@ -29,6 +29,7 @@
     <table id="sortable-table" class="table table-condensed sorted_table">
         <thead>
         <tr>
+            <th>&nbsp;</th>
             <th>#</th>
             <th>Image</th>
             <th>Caption</th>
@@ -37,9 +38,10 @@
             <th></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="sortable">
         {% for picture in pictures %}
             <tr data-entity-id="{{ picture.id }}" class="sortable">
+                <td class="handle">&nbsp;</td>
                 <td>{{ picture.id }}</td>
                 <td>
                     <img width="50" height="50" src="{{ vich_uploader_asset(picture, 'imageFile')|imagine_filter('picture_thumb') }}" alt="{{ picture.caption }}"/>
