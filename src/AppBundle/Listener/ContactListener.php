@@ -4,14 +4,17 @@ namespace AppBundle\Listener;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+
+use AppBundle\AppEvents;
 use AppBundle\Event\ContactEvent;
 
 /**
  * Class ContactListener
  * @package AppBundle\Listener
  */
-class ContactListener
+class ContactListener implements EventSubscriberInterface
 {
     /** @var  EntityManager $em */
     protected $em;
@@ -37,6 +40,13 @@ class ContactListener
         $this->translator = $translator;
     }
 
+    public static function getSubscribedEvents()
+    {
+        return [
+            AppEvents::CONTACT_CREATED => ['onContactCreatedEvent', 0]
+        ];
+    }
+
     //==================================================================================================================
     // E V E N T S
     //==================================================================================================================
@@ -52,6 +62,7 @@ class ContactListener
         $contact = $contactEvent->getContact();
         $subject = sprintf("Contact-Request from: %s", $contact->getName());
 
+        file_put_contents(__DIR__ . '/../../../email.log', $contact->getId() . "\n", FILE_APPEND);
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom($contact->getEmail())

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppEvents;
 use AppBundle\Event\ContactEvent;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -143,7 +144,7 @@ class SiteController extends Controller
                 $em->flush();
                 $em->getConnection()->commit();
 
-                $this->get('event_dispatcher')->dispatch('contact.event.created', new ContactEvent($contact));
+                $this->get('event_dispatcher')->dispatch(AppEvents::CONTACT_CREATED, new ContactEvent($contact));
                 $this->get('session')->set('contact_id', $contact->getId());
 
                 return $this->redirect($this->generateUrl('contact_success'));
