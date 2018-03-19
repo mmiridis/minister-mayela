@@ -141,12 +141,14 @@ class SiteController extends Controller
             try {
                 $em->persist($contact);
                 $em->flush();
+                $em->getConnection()->commit();
 
                 $this->get('event_dispatcher')->dispatch('contact.event.created', new ContactEvent($contact));
                 $this->get('session')->set('contact_id', $contact->getId());
 
                 return $this->redirect($this->generateUrl('contact_success'));
             } catch (\Exception $e) {
+                $em->getConnection()->rollBack();
                 return $this->redirect($this->generateUrl('contact_error'));
             }
         }

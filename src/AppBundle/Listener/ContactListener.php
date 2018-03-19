@@ -54,7 +54,7 @@ class ContactListener
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom('mayela@miridis.com')
+            ->setFrom($contact->getEmail())
             ->setTo($to)
             ->setBody(
                 $this->templating->render(
