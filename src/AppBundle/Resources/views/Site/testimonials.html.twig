@@ -13,7 +13,7 @@
                             <img width="120" height="120" src="{{ vich_uploader_asset(testimonial, 'imageFile')|imagine_filter('testimonial_image') }}"
                                  alt="{{ testimonial.signature }}"/>
                         {% else %}
-                            <img width="120" height="120" src="{{ asset('bundles/app/images/no-testimonial-image.png')|imagine_filter('testimonial_image') }}"
+                            <img width="120" height="120" src="{{ asset('bundles/app/images/no-testimonial-image.png') }}"
                                  alt="{{ testimonial.signature }}"/>
                         {% endif %}
                     </div>
