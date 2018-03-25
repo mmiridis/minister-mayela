@@ -2,8 +2,9 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\Provider;
 use Doctrine\ORM\EntityRepository;
+
+use AppBundle\Entity\Provider;
 
 class ProviderRepository extends EntityRepository
 {

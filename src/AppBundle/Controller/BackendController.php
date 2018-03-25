@@ -2,20 +2,20 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Event\ContactEvent;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use AppBundle\Entity\Contact;
+use AppBundle\Event\ContactEvent;
 use AppBundle\Form\ContactType;
 
 class BackendController extends Controller
@@ -76,7 +76,7 @@ class BackendController extends Controller
      */
     public function faqAction()
     {
-        return $this->render('AppBundle:Site:faq.html.twig',[
+        return $this->render('AppBundle:Site:faq.html.twig', [
             'faqs' => $this->getDoctrine()->getRepository('AppBundle:Faq')->findAllActive()
         ]);
     }

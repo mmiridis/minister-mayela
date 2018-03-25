@@ -32,6 +32,7 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "knplabs/doctrine-behaviors": "^1.4",
         "leafo/scssphp": "^0.6.7",
+        "leogout/seo-bundle": "^1.2",
         "liip/imagine-bundle": "^1.8",
         "patchwork/jsqueeze": "^2.0",
         "phpunit/phpunit": "^5.7",

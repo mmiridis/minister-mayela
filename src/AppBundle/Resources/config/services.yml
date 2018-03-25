@@ -1,18 +1,14 @@
 services:
-    ####################################################################################################################
-    #  E V E N T   L I S T E N E R
-    ####################################################################################################################
-    app_bundle.contact.listener:
-        class: AppBundle\Listener\ContactListener
-        arguments:
-            - "@doctrine.orm.entity_manager"
-            - "@templating.engine.twig"
-            - "@mailer"
-            - "@translator"
-        tags:
-            - { name: kernel.event_listener, event: contact.event.created, method: onContactCreatedEvent }
+  _defaults:
+    autowire: true
+    autoconfigure: true
 
-    twig.obfuscate_email_extension:
-        class: AppBundle\Twig\EmailObfuscatorExtension
-        tags:
-            - { name: twig.extension }
+  ######################################################################################################################
+  #  E V E N T   L I S T E N E R
+  ######################################################################################################################
+  AppBundle\Listener\ContactListener: ~
+
+  ######################################################################################################################
+  #  T W I G   E X T E N S I O N S
+  ######################################################################################################################
+  AppBundle\Twig\EmailObfuscatorExtension: ~

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Listener;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -16,7 +16,7 @@ use AppBundle\Event\ContactEvent;
  */
 class ContactListener implements EventSubscriberInterface
 {
-    /** @var  EntityManager $em */
+    /** @var  EntityManagerInterface $em */
     protected $em;
     /** @var \Swift_Mailer $mailer */
     protected $mailer;
@@ -27,12 +27,12 @@ class ContactListener implements EventSubscriberInterface
 
     /**
      * ContactListener constructor.
-     * @param EntityManager $em
+     * @param EntityManagerInterface $em
      * @param EngineInterface $templating
      * @param \Swift_Mailer $mailer
      * @param TranslatorInterface $translator
      */
-    public function __construct(EntityManager $em, EngineInterface $templating, \Swift_Mailer $mailer, TranslatorInterface $translator)
+    public function __construct(EntityManagerInterface $em, EngineInterface $templating, \Swift_Mailer $mailer, TranslatorInterface $translator)
     {
         $this->em         = $em;
         $this->mailer     = $mailer;

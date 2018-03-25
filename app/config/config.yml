@@ -112,11 +112,19 @@ vich_uploader:
     db_driver: orm
     mappings:
         gallery_images:
-            uri_prefix:         %app.path.gallery_images%
-            upload_destination: %kernel.root_dir%/../web/images/gallery
+            uri_prefix:         "%app.path.gallery_images%"
+            upload_destination: "%kernel.root_dir%/../web/images/gallery"
         testimonial_images:
-            uri_prefix:         %app.path.testimonial_images%
-            upload_destination: %kernel.root_dir%/../web/images/testimonials
+            uri_prefix:         "%app.path.testimonial_images%"
+            upload_destination: "%kernel.root_dir%/../web/images/testimonials"
+
+#leogout_seo:
+#    general:
+#        title: "Mayela Miridis"
+#        description: "Wedding ceremonies minister"
+#    basic:
+#        title: "Mayela Miridis"
+#        keywords: "Mayela, Miridis, minister, wedding, ceremony, religious, symbolic, cancun, riviera maya, mexico"
 
 liip_imagine:
     filter_sets:
