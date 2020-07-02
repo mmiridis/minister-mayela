@@ -1,6 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% set page_title = 'Gallery' %}
+{% set meta_description = 'Get a visual impression of my work.' %}
 
 {% block stylesheets %}
     <link href="/assets/vendor/magnific-popup/dist/magnific-popup.css" rel="stylesheet"/>
@@ -16,33 +17,6 @@
     </style>
 {% endblock %}
 
-{% block javascripts %}
-    <script src="{{ asset("assets/vendor/magnific-popup/dist/jquery.magnific-popup.js") }}"></script>
-
-    <script type="text/javascript">
-        $(function () {
-            $('.popup-gallery').magnificPopup({
-                delegate: 'a',
-                type: 'image',
-                tLoading: 'Loading image #%curr%...',
-                mainClass: 'mfp-img-mobile',
-                gallery: {
-                    enabled: true,
-                    navigateByImgClick: true,
-                    preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
-                },
-                image: {
-                    tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
-                    titleSrc: function (item) {
-                        return item.el.attr('title') + '<br/>' + $(item.el).data('description');
-                    }
-                }
-            });
-        });
-    </script>
-{% endblock %}
-
-
 {% block body %}
 
     <div id="gallery-container" class="popup-gallery">
@@ -53,4 +27,30 @@
         {% endfor %}
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset("assets/vendor/magnific-popup/dist/jquery.magnific-popup.js") }}"></script>
+
+    <script type="text/javascript">
+      $(function () {
+        $('.popup-gallery').magnificPopup({
+          delegate: 'a',
+          type: 'image',
+          tLoading: 'Loading image #%curr%...',
+          mainClass: 'mfp-img-mobile',
+          gallery: {
+            enabled: true,
+            navigateByImgClick: true,
+            preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+          },
+          image: {
+            tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+            titleSrc: function (item) {
+              return item.el.attr('title') + '<br/>' + $(item.el).data('description');
+            }
+          }
+        });
+      });
+    </script>
 {% endblock %}

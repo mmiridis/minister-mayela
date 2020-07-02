@@ -133,7 +133,7 @@ class SiteController extends Controller
         $form    = $this->createCreateForm($contact);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isValid() and $this->captchaverify($request->get('g-recaptcha-response'))) {
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
 
@@ -150,8 +150,13 @@ class SiteController extends Controller
                 return $this->redirect($this->generateUrl('contact_success'));
             } catch (\Exception $e) {
                 $em->getConnection()->rollBack();
+
                 return $this->redirect($this->generateUrl('contact_error'));
             }
+        }
+
+        if ($form->isSubmitted() && $form->isValid() && !$this->captchaverify($request->get('g-recaptcha-response'))) {
+            $this->addFlash('error', 'Please check the box below');
         }
 
         return $this->render('AppBundle:Site:contact.html.twig', [
@@ -200,6 +205,25 @@ class SiteController extends Controller
         return $this->render('AppBundle:Site:error.html.twig', [
             'contact' => $contact
         ]);
+    }
+
+    private function captchaVerify($recaptcha)
+    {
+        $url = "https://www.google.com/recaptcha/api/siteverify";
+        $ch  = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, [
+            "secret"   => "6Lcfs6wZAAAAAB7aoZOPN-SwvB0X5CJ-cXn8aW-U",
+            "response" => $recaptcha
+        ]);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $data = json_decode($response);
+
+        return $data->success;
     }
 
     /**

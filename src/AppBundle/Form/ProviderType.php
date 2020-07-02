@@ -2,11 +2,13 @@
 
 namespace AppBundle\Form;
 
+use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+use AppBundle\Entity\Provider;
 
 class ProviderType extends AbstractType
 {
@@ -44,7 +46,7 @@ class ProviderType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Provider'
+            'data_class' => Provider::class
         ]);
     }
 
@@ -53,6 +55,6 @@ class ProviderType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_provider';
+        return 'provider';
     }
 }

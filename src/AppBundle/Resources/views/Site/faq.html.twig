@@ -1,26 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
 
-{% block javascripts %}
-<script>
-    $(function(){
-
-        $('a.faq-btn')
-                .bind('click', function(evt){
-                    evt.preventDefault();
-
-                    console.log($(this).closest('.faq-row'));
-                    $(this).closest('.faq-row').find('.answer').toggle();
-                })
-                .bind('mousedown', function(evt){
-                    evt.preventDefault();
-                })
-        ;
-
-    });
-</script>
-{% endblock %}
-
 {% set page_title = 'F.A.Q.' %}
+{% set meta_description = 'Find answers here to questions many couples have asked before.' %}
 
 {% block body %}
 
@@ -43,4 +24,23 @@
         </div>
     {% endfor %}
 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+      $(function () {
+
+        $('a.faq-btn')
+          .bind('click', function (evt) {
+            evt.preventDefault();
+
+            $(this).closest('.faq-row').find('.answer').toggle();
+          })
+          .bind('mousedown', function (evt) {
+            evt.preventDefault();
+          })
+        ;
+
+      });
+    </script>
 {% endblock %}

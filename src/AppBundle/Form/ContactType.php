@@ -2,10 +2,14 @@
 
 namespace AppBundle\Form;
 
+use DateTime;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use AppBundle\Entity\Contact;
 
 class ContactType extends AbstractType
 {
@@ -18,7 +22,7 @@ class ContactType extends AbstractType
             ->add('name')
             ->add('email')
             ->add('weddingDate', DateType::class, [
-                'data'  => new \DateTime(),
+                'data'  => new DateTime(),
                 'years' => range(date('Y') + 10, date('Y') - 50)
             ])
             ->add('location')
@@ -31,7 +35,7 @@ class ContactType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Contact'
+            'data_class' => Contact::class
         ]);
     }
 
@@ -40,6 +44,6 @@ class ContactType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_contact';
+        return 'contact';
     }
 }

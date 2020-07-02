@@ -2,11 +2,12 @@
 
 namespace AppBundle\Form;
 
+use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 
+use AppBundle\Entity\Faq;
 class FaqType extends AbstractType
 {
     /**
@@ -33,7 +34,7 @@ class FaqType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Faq'
+            'data_class' => Faq::class
         ]);
     }
 
@@ -42,8 +43,6 @@ class FaqType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_faq';
+        return 'faq';
     }
-
-
 }

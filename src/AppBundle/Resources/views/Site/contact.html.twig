@@ -1,6 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% set page_title = 'Contact Me' %}
+{% set meta_description = 'Congratulations on your upcoming wedding, if you want to book my services, please fill out the information below and I will get in touch!' %}
 
 {% block body %}
 
@@ -8,7 +9,8 @@
 
         <div class="col-xs-10">
             <div>
-                Congratulations on your upcoming wedding, if you want to book my services, please fill out the information below and I will get in touch!
+                Congratulations on your upcoming wedding, if you want to book my services, please fill out the
+                information below and I will get in touch!
             </div>
             <br/>
         </div>
@@ -21,10 +23,19 @@
                 {{ form_row(form.weddingDate) }}
                 {{ form_row(form.location, {label:"Location", attr:{placeholder:"Where will you get married"}}) }}
                 {{ form_row(form.message) }}
+                {% set errors = app.session.flashbag.get('error') %}
+                {% if errors|length %}
+                    <div class="flash alert alert-danger"
+                         style="padding: 10px 20px;">{% for flashMessage in errors %}{{ flashMessage }}{% endfor %}</div>
+                {% endif %}
+                <div class="g-recaptcha" data-sitekey="6Lcfs6wZAAAAAC1COpaxdcKE5olExDQS95dNB_tU" style="margin-bottom: 15px;"></div>
                 {{ form_row(form.submit, {label: "send", attr: {class:"btn btn-primary"}}) }}
                 {{ form_end(form) }}
             </div>
         </div>
-
     </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://google.com/recaptcha/api.js"></script>
 {% endblock %}

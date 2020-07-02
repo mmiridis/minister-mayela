@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
+use AppBundle\Entity\Testimonial;
+
 class TestimonialType extends AbstractType
 {
     /**
@@ -29,7 +31,7 @@ class TestimonialType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Testimonial'
+            'data_class' => Testimonial::class
         ]);
     }
 
@@ -38,8 +40,6 @@ class TestimonialType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_testimonial';
+        return 'testimonial';
     }
-
-
 }

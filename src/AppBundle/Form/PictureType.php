@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
+use AppBundle\Entity\Picture;
+
 class PictureType extends AbstractType
 {
     /**
@@ -29,7 +31,7 @@ class PictureType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\Picture'
+            'data_class' => Picture::class
         ]);
     }
 
@@ -38,8 +40,6 @@ class PictureType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_picture';
+        return 'picture';
     }
-
-
 }
